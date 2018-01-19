@@ -14,7 +14,8 @@ export default class Dashboard extends React.Component {
     this.state = {
     	planetList: [],
     	open: false,
-    	message: ""
+    	message: "",
+    	fetching: false
     }
     this.count = 0;
     this.callResetTimeout = null;
@@ -30,10 +31,16 @@ export default class Dashboard extends React.Component {
   getData = async (value) => {
     if (value || value === "") {
       try {
+      	this.setState({
+      		fetching: true
+      	})
         let response = await Api.get(`https://swapi.co/api/planets/?search=${value.trim()}&format=json`);
         let result = response.results ? response.results : [];
-        this.setState({planetList: result});
+        this.setState({planetList: result, fetching: false});
       } catch (err) {
+      	this.setState({
+      		fetching: false
+      	})
         console.log(err);
       }
     }
@@ -78,7 +85,7 @@ export default class Dashboard extends React.Component {
   };
 
   render() {
-    let { open, message, planetList } = this.state;
+    let { open, message, planetList, fetching } = this.state;
     const styles = {
       cardStyle: {
         width: '35%',
@@ -108,7 +115,7 @@ export default class Dashboard extends React.Component {
             />}
 		    iconElementRight={<FlatButton onClick={this.logout} label="Logout" />}
 		/>,
-		<PlanetList planetList={planetList} />,
+		<PlanetList planetList={planetList} fetching={fetching} />,
 		<Snackbar
           open={open}
           message={message}

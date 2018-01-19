@@ -2,7 +2,9 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
-export default class PlanetList extends React.Component {
+import LoaderHoc from '../../hoc/loader';
+
+class PlanetList extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
@@ -69,11 +71,11 @@ export default class PlanetList extends React.Component {
 	    ];
 		return(
 			[
-				planetList.length > 0 && planetList.map((planet, index)=>{
+				planetList.length > 0 ? planetList.map((planet, index)=>{
 					return (
 						<div onClick={()=> {this.handleOpen(planet)}} key={planet.name} style={this.getStyle(planet.population)}>{planet.name}</div>
 					)
-				}),
+				}):<h3>No Data</h3>,
 				<Dialog
 		          title="Planet Info."
 		          actions={actions}
@@ -91,3 +93,5 @@ export default class PlanetList extends React.Component {
 		)
 	}
 }
+
+export default LoaderHoc(PlanetList)
