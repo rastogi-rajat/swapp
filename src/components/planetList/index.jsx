@@ -10,26 +10,34 @@ export default class PlanetList extends React.Component {
 			planet: {}
 		}
 	}
-	getStyle = (population, index) => {
+	getStyle = (population) => {
 		let size = 15;
+		let color = '#E3F2FD'
 		if(parseInt(population, 10) >= 2000000000){
 			size = 45;
+			color = '#1976D2'
 		} else if(parseInt(population, 10) > 10000000){
+			color = '#1E88E5'
 			size = 40;
 		} else if(parseInt(population, 10) > 1000000){
+			color = '#2196F3'
 			size = 30;
 		} else if(parseInt(population, 10) > 500000){
+			color = '#42A5F5'
 			size = 27;
 		} else if(parseInt(population, 10) > 50000){
+			color = '#64B5F6'
 			size = 25;
 		} else if(parseInt(population, 10) > 10000){
+			color = '#90CAF9'
 			size = 22;
 		} else if(parseInt(population, 10) > 1000){
+			color = '#BBDEFB'
 			size = 20;
 		}
 		let style = {
 			display : "inline-block",
-			backgroundColor: index%2 ? "#EF5350":"#5C6BC0",
+			backgroundColor: color,
 			margin: 5,
 			float:"left",
 			width: `${size}%`,
@@ -63,7 +71,7 @@ export default class PlanetList extends React.Component {
 			[
 				planetList.length > 0 && planetList.map((planet, index)=>{
 					return (
-						<div onClick={()=> {this.handleOpen(planet)}} key={planet.name} style={this.getStyle(planet.population, index)}>{planet.name}</div>
+						<div onClick={()=> {this.handleOpen(planet)}} key={planet.name} style={this.getStyle(planet.population)}>{planet.name}</div>
 					)
 				}),
 				<Dialog

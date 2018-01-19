@@ -71,7 +71,7 @@ export default class Login extends React.Component {
         position: 'absolute',
         top:'32%',
         left: '32%',
-        backgroundColor:'rgba(2, 166, 242, 0.39)'
+        backgroundColor:'#1abcd499'
       },
       centerStyle: {
         textAlign: 'center'
